@@ -1,0 +1,104 @@
+
+package loan;
+
+
+public class Borrower
+{
+
+    public class Bankruptcy
+            extends java.io.Serializable
+    {
+        public readonly int chapter;
+        public readonly java.util.Date date;
+        public readonly java.lang.String reason;
+        public Bankruptcy(loan.Borrower arg1, java.util.Date arg2, int arg3, java.lang.String arg4);
+    }
+
+    public class SSN
+            extends java.io.Serializable
+    {
+        public readonly java.lang.String areaNumber;
+        public readonly int digits;
+        public readonly java.lang.String fullNumber;
+        public readonly java.lang.String groupCode;
+        public readonly java.lang.String serialNumber;
+        public SSN(loan.Borrower arg1, java.lang.String arg2);
+        public SSN(loan.Borrower arg1, java.lang.String arg2, java.lang.String arg3, java.lang.String arg4);
+        public java.lang.String toString();
+    }
+    public readonly loan.Borrower.SSN SSN;
+    public readonly int age;
+    public readonly java.util.Date birthDate;
+    public int creditScore;
+    public readonly java.lang.String firstName;
+    public readonly java.lang.String lastName;
+    public readonly int latestBankruptcyChapter;
+    public readonly java.util.Date latestBankruptcyDate;
+    public readonly java.lang.String latestBankruptcyReason;
+    public int yearlyIncome;
+    public java.lang.String zipCode;
+    public Borrower(java.lang.String arg1, java.lang.String arg2, java.util.Date arg3, java.lang.String arg4);
+    public int getBankruptcyAge();
+    public boolean hasLatestBankrupcy();
+    public void setLatestBankruptcy(java.util.Date arg1, int arg2, java.lang.String arg3);
+    public java.lang.String toString();
+}
+
+public class DateUtil
+{
+    public static java.util.Date addDays(java.util.Date arg1, int arg2);
+    public static java.util.Date dateAsDay(java.util.Date arg);
+    public static java.lang.String format(java.util.Date arg);
+    public static int getAge(java.util.Date arg1, java.util.Date arg2);
+    public static int getDuration(java.util.Date arg1, java.util.Date arg2);
+    public static java.util.Iterator iterator(java.util.Date arg1, java.util.Date arg2);
+    public static java.util.Date makeDate(int arg1, int arg2, int arg3);
+    public static java.util.Date now();
+}
+
+public class Loan
+{
+    public readonly int amount;
+    public readonly int duration;
+    public double loanToValue;
+    public double monthlyRepayment;
+    public readonly int numberOfMonthlyPayments;
+    public readonly java.util.Date startDate;
+    public double yearlyInterestRate;
+    public readonly double yearlyRepayment;
+    public Loan(java.util.Date arg1, int arg2, int arg3, double arg4);
+    public java.lang.String toString();
+}
+
+public class LoanUtil
+{
+    public static boolean containsOnlyDigits(java.lang.String arg);
+    public static java.lang.String formattedAmount(double arg);
+    public static java.lang.String formattedNumber(int integer);
+    public static java.lang.String formattedPercentage(double arg);
+    public static double getMonthlyRepayment(double amount, int months, double rate);
+    public static int getStringSize(java.lang.String s);
+}
+
+public class Report
+{
+    public boolean approved;
+    public readonly loan.Borrower borrower;
+    public int corporateScore;
+    public java.lang.String grade domain {"A", "B", "C", "D", "E"};
+    public readonly java.lang.String insurance;
+    public double insuranceRate;
+    public boolean insuranceRequired;
+    public readonly loan.Loan loan;
+    public readonly java.lang.String message;
+    public readonly java.util.List messages domain 0,*;
+    public boolean validData;
+    public Report(loan.Borrower arg1, loan.Loan arg2);
+    public void addCorporateScore(int arg);
+    public void addMessage(java.lang.String arg);
+    public void approveLoan(java.lang.String message);
+    public void rejectData(java.lang.String message);
+    public void rejectLoan(java.lang.String message);
+    public java.lang.String toString();
+}
+

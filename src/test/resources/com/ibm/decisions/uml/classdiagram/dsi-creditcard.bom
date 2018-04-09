@@ -1,0 +1,259 @@
+property uuid "9628f445-9d8b-4914-aad1-dff552824602"
+property bdl_generated "true"
+package creditcard;
+
+
+public class Account
+        implements com.ibm.ia.model.Entity
+        property "de.generated" "true"
+        property "xsd.definedNamespaces" ""
+        property "xsd.entityElementName" "Account"
+        property "xsd.fileName" "model.xsd"
+        property "xsd.support" "true"
+        property "xsd.targetNamespace" "http://www.ibm.com/ia/xmlns/default/ConnectivitySolutionBOM/model"
+{
+    public double balance
+                property update "true"
+                property "xsd.name" "balance"
+                property "xsd.order" "0";
+    public creditcard.Customer customer
+                property update "true"
+                property "xsd.name" "customer"
+                property "xsd.order" "1"
+                property "xsd.useMapping" "true";
+    public string id
+                property "ia.entity.id" "true"
+                property update "true"
+                property "xsd.name" "id"
+                property "xsd.order" "2";
+    public java.time.ZonedDateTime lastCheckTime
+                property update "true"
+                property "xsd.name" "lastCheckTime"
+                property "xsd.order" "3";
+    public creditcard.AccountStatus status
+                property update "true"
+                property "xsd.name" "status"
+                property "xsd.order" "4";
+    public Account(string id)
+                property "dataio.default" "true";
+    public Account(double balance, creditcard.Customer customer, string id, java.time.ZonedDateTime lastCheckTime, creditcard.AccountStatus status)
+                property groups "BALA"
+                property prototype "true";
+}
+
+public class AccountStatus
+        property "de.generated" "true"
+        property "ia.enum" "true"
+        property "xsd.definedNamespaces" ""
+        property "xsd.fileName" "model.xsd"
+        property "xsd.support" "true"
+        property "xsd.targetNamespace" "http://www.ibm.com/ia/xmlns/default/ConnectivitySolutionBOM/model"
+{
+    domain {static Excellent, static Good, static Fair, static Poor, static Risky}
+    public static final readonly creditcard.AccountStatus Excellent
+                property "xsd.name" "Excellent"
+                property "xsd.order" "0";
+    public static final readonly creditcard.AccountStatus Fair
+                property "xsd.name" "Fair"
+                property "xsd.order" "1";
+    public static final readonly creditcard.AccountStatus Good
+                property "xsd.name" "Good"
+                property "xsd.order" "2";
+    public static final readonly creditcard.AccountStatus Poor
+                property "xsd.name" "Poor"
+                property "xsd.order" "3";
+    public static final readonly creditcard.AccountStatus Risky
+                property "xsd.name" "Risky"
+                property "xsd.order" "4";
+}
+
+public class AuthorizationResponse
+        implements com.ibm.ia.model.Event
+        property "brl.facets" "ilog.rules.brl.Date:date"
+        property "de.generated" "true"
+        property "xsd.definedNamespaces" ""
+        property "xsd.eventElementName" "AuthorizationResponse"
+        property "xsd.fileName" "model.xsd"
+        property "xsd.support" "true"
+        property "xsd.targetNamespace" "http://www.ibm.com/ia/xmlns/default/ConnectivitySolutionBOM/model"
+{
+    public creditcard.Account account
+                property "xsd.name" "account"
+                property "xsd.order" "0"
+                property "xsd.useMapping" "true";
+    public java.time.ZonedDateTime date
+                property "ia.timestamp" "true"
+                property "xsd.name" "date"
+                property "xsd.order" "1";
+    public creditcard.Exception exception
+                property "xsd.name" "exception"
+                property "xsd.order" "2";
+    public string message
+                property "xsd.name" "message"
+                property "xsd.order" "3";
+    public creditcard.Transaction transaction
+                property "xsd.name" "transaction"
+                property "xsd.order" "4";
+    public AuthorizationResponse(java.time.ZonedDateTime date)
+                property "dataio.default" "true";
+    public AuthorizationResponse(creditcard.Account account, java.time.ZonedDateTime date, creditcard.Exception exception, string message, creditcard.Transaction transaction)
+                property groups "BALA"
+                property prototype "true";
+}
+
+public class Customer
+        implements com.ibm.ia.model.Entity
+        property "de.generated" "true"
+        property "xsd.definedNamespaces" ""
+        property "xsd.entityElementName" "Customer"
+        property "xsd.fileName" "model.xsd"
+        property "xsd.support" "true"
+        property "xsd.targetNamespace" "http://www.ibm.com/ia/xmlns/default/ConnectivitySolutionBOM/model"
+{
+    public java.util.List accounts domain 0,* class creditcard.Account
+                property update "true"
+                property "xsd.collection" "java.lang.String"
+                property "xsd.name" "account"
+                property "xsd.order" "0"
+                property "xsd.useMapping" "creditcard.Account";
+    public string email
+                property "ia.entity.id" "true"
+                property update "true"
+                property "xsd.name" "email"
+                property "xsd.order" "1";
+    public string firstName
+                property update "true"
+                property "xsd.name" "firstName"
+                property "xsd.order" "2";
+    public string lastName
+                property update "true"
+                property "xsd.name" "lastName"
+                property "xsd.order" "3";
+    public string phoneNumber
+                property update "true"
+                property "xsd.name" "phoneNumber"
+                property "xsd.order" "4";
+    public Customer(string email)
+                property "dataio.default" "true";
+    public Customer(string email, string firstName, string lastName, string phoneNumber)
+                property groups "BALA"
+                property prototype "true";
+    public void addTo_accounts(creditcard.Account arg0)
+                property collectionAttribute "accounts"
+                property update "true";
+    public void clear_accounts()
+                property collectionAttribute "accounts"
+                property update "true";
+    public creditcard.Account getFrom_accounts(string arg0)
+                property collectionAttribute "accounts";
+    public void removeFrom_accounts(creditcard.Account arg0)
+                property collectionAttribute "accounts"
+                property update "true";
+    public void set_accounts(java.util.Collection arg0 domain 0,* class creditcard.Account)
+                property collectionAttribute "accounts"
+                property update "true";
+}
+
+public class Exception
+        property "de.generated" "true"
+        property "xsd.definedNamespaces" ""
+        property "xsd.fileName" "model.xsd"
+        property "xsd.support" "true"
+        property "xsd.targetNamespace" "http://www.ibm.com/ia/xmlns/default/ConnectivitySolutionBOM/model"
+{
+    public string code
+                property update "true"
+                property "xsd.name" "code"
+                property "xsd.order" "0";
+    public string reason
+                property update "true"
+                property "xsd.name" "reason"
+                property "xsd.order" "1";
+    public Exception(string code, string reason)
+                property groups "BALA"
+                property prototype "true";
+    public Exception()
+                property "dataio.default" "true";
+}
+
+public class Merchant
+        implements com.ibm.ia.model.Entity
+        property "de.generated" "true"
+        property "xsd.definedNamespaces" ""
+        property "xsd.entityElementName" "Merchant"
+        property "xsd.fileName" "model.xsd"
+        property "xsd.support" "true"
+        property "xsd.targetNamespace" "http://www.ibm.com/ia/xmlns/default/ConnectivitySolutionBOM/model"
+{
+    public string id
+                property "ia.entity.id" "true"
+                property update "true"
+                property "xsd.name" "id"
+                property "xsd.order" "0";
+    public string location
+                property update "true"
+                property "xsd.name" "location"
+                property "xsd.order" "1";
+    public creditcard.MerchantType type
+                property update "true"
+                property "xsd.name" "type"
+                property "xsd.order" "2";
+    public Merchant(string id)
+                property "dataio.default" "true";
+    public Merchant(string id, string location, creditcard.MerchantType type)
+                property groups "BALA"
+                property prototype "true";
+}
+
+public class MerchantType
+        property "de.generated" "true"
+        property "ia.enum" "true"
+        property "xsd.definedNamespaces" ""
+        property "xsd.fileName" "model.xsd"
+        property "xsd.support" "true"
+        property "xsd.targetNamespace" "http://www.ibm.com/ia/xmlns/default/ConnectivitySolutionBOM/model"
+{
+    domain {static Store, static Online}
+    public static final readonly creditcard.MerchantType Online
+                property "xsd.name" "Online"
+                property "xsd.order" "0";
+    public static final readonly creditcard.MerchantType Store
+                property "xsd.name" "Store"
+                property "xsd.order" "1";
+}
+
+public class Transaction
+        implements com.ibm.ia.model.Event
+        property "brl.facets" "ilog.rules.brl.Date:date"
+        property "de.generated" "true"
+        property "xsd.definedNamespaces" ""
+        property "xsd.eventElementName" "Transaction"
+        property "xsd.fileName" "model.xsd"
+        property "xsd.support" "true"
+        property "xsd.targetNamespace" "http://www.ibm.com/ia/xmlns/default/ConnectivitySolutionBOM/model"
+{
+    public creditcard.Account account
+                property "xsd.name" "account"
+                property "xsd.order" "0"
+                property "xsd.useMapping" "true";
+    public double amount
+                property "xsd.name" "amount"
+                property "xsd.order" "1";
+    public string countryCode
+                property "xsd.name" "countryCode"
+                property "xsd.order" "2";
+    public java.time.ZonedDateTime date
+                property "ia.timestamp" "true"
+                property "xsd.name" "date"
+                property "xsd.order" "3";
+    public creditcard.Merchant merchant
+                property "xsd.name" "merchant"
+                property "xsd.order" "4"
+                property "xsd.useMapping" "true";
+    public Transaction(java.time.ZonedDateTime date)
+                property "dataio.default" "true";
+    public Transaction(creditcard.Account account, double amount, string countryCode, java.time.ZonedDateTime date, creditcard.Merchant merchant)
+                property groups "BALA"
+                property prototype "true";
+}
+
