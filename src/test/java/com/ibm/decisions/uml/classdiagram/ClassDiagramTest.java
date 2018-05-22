@@ -40,21 +40,25 @@ import java.io.StringWriter;
  */
 public class ClassDiagramTest extends TestCase {
   public void testLoanValidation() throws Exception {
-    IlrObjectModel bom = readBOM("com/ibm/decisions/uml/classdiagram/loanvalidation.bom");
-    StringWriter stringWriter = new StringWriter();
-    ClassDiagramWriter writer = new ClassDiagramWriter(new PrintWriter(stringWriter));
-    writer.writeModel(bom);
-    System.out.println(stringWriter.toString());
+    final String name = "com/ibm/decisions/uml/classdiagram/loanvalidation.bom";
+    System.out.println(getClassDiagramFromBOM(name));
   }
+
 
   public void testDSICreditcard() throws Exception {
-    IlrObjectModel bom = readBOM("com/ibm/decisions/uml/classdiagram/dsi-creditcard.bom");
+    final String name = "com/ibm/decisions/uml/classdiagram/dsi-creditcard.bom";
+    System.out.println(getClassDiagramFromBOM(name));
+
+  }
+
+  public static String getClassDiagramFromBOM(String name) throws IOException {
+    IlrObjectModel bom = readBOM(name);
     StringWriter stringWriter = new StringWriter();
     ClassDiagramWriter writer = new ClassDiagramWriter(new PrintWriter(stringWriter));
     writer.writeModel(bom);
-    System.out.println(stringWriter.toString());
-
+    return stringWriter.toString();
   }
+
 
   public static IlrMutableObjectModel readBOM(String name) throws IOException {
     IlrDynamicObjectModel bom = new IlrDynamicObjectModel(IlrObjectModel.Kind.BUSINESS);
