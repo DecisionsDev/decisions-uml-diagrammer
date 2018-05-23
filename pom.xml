@@ -11,11 +11,34 @@
 
   <properties>
     <odm.version>8.9.2</odm.version>
-    <odm.install>ODM_HOME_DIRECTORY</odm.install>
+    <odm.install>${env.ODM_HOME_DIRECTORY}</odm.install>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <exec.mainClass>com.ibm.decisions.uml.Command</exec.mainClass>
   </properties>
+
+
+    <build>
+    <plugins>
+    <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>java</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <mainClass>com.ibm.decisions.uml.Command</mainClass>
+            <additionalClasspathElements><additionalClasspathElement>${odm.install}/studio/lib/jrules-engine.jar</additionalClasspathElement> </additionalClasspathElements>
+        </configuration>
+    </plugin>
+    </plugins>
+    </build>
 
   <dependencies>
     <dependency>
@@ -29,7 +52,7 @@
             <artifactId>jrules-engine</artifactId>
             <version>${odm.version}</version>
             <scope>system</scope>
-<systemPath>${odm.install}/studio/lib/jrules-engine.jar</systemPath>
+      <systemPath>${odm.install}/studio/lib/jrules-engine.jar</systemPath>
   	</dependency>
     <dependency>
       <groupId>com.beust</groupId>

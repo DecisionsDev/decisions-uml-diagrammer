@@ -26,8 +26,8 @@ import ilog.rules.bom.dynamic.IlrDynamicObjectModel;
 import ilog.rules.bom.mutable.IlrMutableObjectModel;
 import ilog.rules.bom.serializer.IlrJavaSerializer;
 import ilog.rules.bom.serializer.IlrSyntaxError;
-import junit.framework.Assert;
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.io.*;
 
@@ -38,13 +38,14 @@ import java.io.StringWriter;
  * Class diagram writer test, currently only testing that the writing doesn't end in an exception.
  * @author Jean-Louis Ardoint
  */
-public class ClassDiagramTest extends TestCase {
+public class ClassDiagramTest {
+  @Test
   public void testLoanValidation() throws Exception {
     final String name = "com/ibm/decisions/uml/classdiagram/loanvalidation.bom";
     System.out.println(getClassDiagramFromBOM(name));
   }
 
-
+  @Test
   public void testDSICreditcard() throws Exception {
     final String name = "com/ibm/decisions/uml/classdiagram/dsi-creditcard.bom";
     System.out.println(getClassDiagramFromBOM(name));
@@ -85,7 +86,7 @@ public class ClassDiagramTest extends TestCase {
     String[] messages = error.getErrorMessages();
     for (String message : messages)
       System.err.println(message);
-    Assert.fail(error.getMessage());
+    fail(error.getMessage());
   }
 
 }

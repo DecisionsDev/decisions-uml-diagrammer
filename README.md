@@ -3,7 +3,7 @@ A repository to produce UML diagrams from ODM Rules or ODM DSI artifacts
 
 The generation of UML diagram is using [PlantUML](http://plantuml.com/).
 In this first version, the code herein is only producing 
-a textual description that can be used by PlantUML to produce a diagram.
+a textual description that can be passed to PlantUML to produce a diagram.
 
 ## Class diagram from a Business Object Model (BOM)
 
@@ -17,6 +17,22 @@ It has a specific representation for:
 - utility classes (U)
 - event classes (E)
 - entity classes (N)
+
+## How to get a diagram
+You may call
+
+```
+mvn exec:java -Dexec.args="-bom src/test/resources/com/ibm/decisions/uml/classdiagram/dsi-creditcard.bom"
+```
+The '**-bom**' argument should be followed by the name of a BOM file. If no '-bom' argument is being passed, then the
+standard input will be used as the BOM.
+
+There is also a '**-output**' option to pass the name of the output file. If no output is provided, the standard output
+will be used to display the textual description of the UML diagram.
+
+This textual description can be copied on the PlantUML server to obtain an image.
+
+A future version of this project will include the PlanUML server as a Docker image.
 
 # License
 [Apache 2.0](LICENSE)

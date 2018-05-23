@@ -1,7 +1,8 @@
 package com.ibm.decisions.uml;
 
 import com.ibm.decisions.uml.classdiagram.ClassDiagramTest;
-import junit.framework.TestCase;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.io.*;
 import java.net.URL;
@@ -10,9 +11,10 @@ import java.net.URL;
 /**
  * Created by ardoint on 11/04/2018.
  */
-public class CommandTest extends TestCase {
+public class CommandTest {
   String loanValidation = "com/ibm/decisions/uml/classdiagram/loanvalidation.bom";
 
+  @Test
   public void testLoanValidation() throws Exception {
     String direct = ClassDiagramTest.getClassDiagramFromBOM(loanValidation);
 
