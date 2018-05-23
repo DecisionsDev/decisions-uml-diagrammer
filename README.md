@@ -1,5 +1,5 @@
 # decisions-uml-diagrammer
-A repository to produce UML diagrams from ODM Rules or ODM DSI artifacts
+A repository to produce UML diagrams from [IBM ODM](https://www.ibm.com/support/knowledgecenter/SSQP76_8.9.2/welcome/kc_welcome_odmV.html) Rules or IBM ODM DSI artifacts
 
 The generation of UML diagram is using [PlantUML](http://plantuml.com/).
 In this first version, the code herein is only producing 
@@ -19,6 +19,17 @@ It has a specific representation for:
 - entity classes (N)
 
 ## How to get a diagram
+
+### Setting up and Building the project
+
+Clone this git reposiitory `git clone https://github.com/ODMDev/decisions-uml-diagrammer.git`
+
+Before trying to build, you should set the ODM_HOME_DIRECTORY environment variable
+to point to your IBM ODM installation directory.
+
+Then run `mvn install`
+
+### Command line interface
 You may call
 
 ```
@@ -32,7 +43,7 @@ will be used to display the textual description of the UML diagram.
 
 This textual description can be copied on the PlantUML server to obtain an image.
 
-A future version of this project will include the PlanUML server as a Docker image.
+A future version of this project will include the PlantUML server as a Docker image.
 
 # License
 [Apache 2.0](LICENSE)
