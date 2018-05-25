@@ -21,14 +21,13 @@
 **/
 package com.ibm.decisions.uml.classdiagram;
 
-import java.io.PrintWriter;
-import java.util.*;
-
 import ilog.rules.bom.*;
 import ilog.rules.bom.util.IlrModelUtilities;
 import ilog.rules.util.IlrVisitable;
 import ilog.rules.util.IlrVisitor;
 
+import java.io.PrintWriter;
+import java.util.*;
 
 import static ilog.rules.bom.util.IlrClassUtilities.*;
 
@@ -61,7 +60,13 @@ public class ClassDiagramWriter {
       this.model = model;
       excludedNamespaces.add("java");
       excludedNamespaces.add("ilog.rules.xml");
-      inlinedAttributeTypes.add("java.util.Date");
+      inlinedAttributeTypes.add("java.lang.Double");
+      inlinedAttributeTypes.add("java.util.Float");
+      inlinedAttributeTypes.add("java.util.Boolean");
+      inlinedAttributeTypes.add("java.util.Integer");
+      inlinedAttributeTypes.add("java.util.Short");
+      inlinedAttributeTypes.add("java.util.Byte");
+      inlinedAttributeTypes.add("java.util.Character");
       inlinedAttributeTypes.add("java.time.ZonedDateTime");
 
       type2inheritedNode.put("com.ibm.ia.model.Event", "<< (V,#ff704d) Event >>");
@@ -181,19 +186,18 @@ public class ClassDiagramWriter {
         List<IlrAttribute> result = new ArrayList<>(size);
         for (Object attribute1 : attributes) {
           IlrAttribute attribute = (IlrAttribute) attribute1;
-          final IlrType attributeType = attribute.getAttributeType();
-          if (isAttributeInlined(attributeType)) {
+          String inlinedTypeRepresentation = getInlinedTypeRepresentation(attribute);
+          if (inlinedTypeRepresentation != null) {
             writeModifiers(attribute);
-            printShortType(attributeType);
-            writer.print(" ");
             boolean bold = isBoldAttribute(attribute);
             if (bold)
               writer.print("<b>");
             writer.print(attribute.getName());
             if (bold)
-              writer.println("</b>");
-            else
-              writer.println();
+              writer.print("</b>");
+
+            writer.print(": ");
+            writer.println(inlinedTypeRepresentation);
           } else {
             result.add(attribute);
           }
@@ -217,12 +221,7 @@ public class ClassDiagramWriter {
         if (domain instanceof IlrCollectionDomain) {
           IlrCollectionDomain collectionDomain = (IlrCollectionDomain) domain;
           writer.print("\"");
-          writer.print(collectionDomain.getMin());
-          writer.print(',');
-          if (collectionDomain.getMax() == IlrCollectionDomain.INFINITE)
-            writer.print('*');
-          else
-            writer.print(collectionDomain.getMax());
+          writer.print(getMultiplicity(collectionDomain));
           writer.print("\" ");
           if (collectionDomain.getElementType() != null) {
             printType(collectionDomain.getElementType());
@@ -251,15 +250,54 @@ public class ClassDiagramWriter {
       }
     }
 
+    String getMultiplicity(IlrCollectionDomain domain) {
+      final int min = domain.getMin();
+      final int max = domain.getMax();
+      if (min == max)
+        return "" + min;
+      if (max == IlrCollectionDomain.INFINITE)
+        if (min == 0)
+          return "*";
+        else
+          return min + "..*";
 
-    private boolean isAttributeInlined(IlrType attributeType) {
+      return min + ".." + max;
+    }
 
-      return (attributeType.isPrimitiveType()
+    private String getInlinedTypeRepresentation(IlrAttribute attribute) {
+      String rep = getInlinedTypeRepresentation(attribute.getAttributeType());
+
+      if (rep == null) {
+        IlrDomain domain = attribute.getLocalDomain();
+        if (domain instanceof IlrCollectionDomain) {
+          IlrCollectionDomain collectionDomain = (IlrCollectionDomain) domain;
+          if (collectionDomain.getElementType() != null) {
+            rep =  getInlinedTypeRepresentation(collectionDomain.getElementType());
+            if (rep != null) {
+              return rep + " [" + getMultiplicity(collectionDomain) + "]";
+            }
+          }
+        }
+      }
+      return rep;
+    }
+
+    private String getInlinedTypeRepresentation(IlrType attributeType) {
+
+      if (attributeType.isPrimitiveType()
           || attributeType == model.getStringClass()
           || inlinedAttributeTypes.contains(attributeType.getFullyQualifiedName())
-          || isEnumClass(attributeType)
-          || (attributeType.isArray()) && isAttributeInlined(attributeType.getComponentType()));
+          || isEnumClass(attributeType))
+          return getShortName(attributeType);
+
+       if(attributeType.isArray()) {
+         String rep = getInlinedTypeRepresentation(attributeType.getComponentType());
+         if (rep != null)
+           return rep+"[]";
+       };
+       return null;
     }
+
 
 
     void printType(IlrType type) {
@@ -269,13 +307,17 @@ public class ClassDiagramWriter {
     }
 
     void printShortType(IlrType type) {
+        writer.print(getShortName(type));
+    }
+
+    String getShortName(IlrType type) {
+
       String FQN = type.getFullyQualifiedName();
       String shortName = model.getShortname(FQN);
       if (shortName != FQN)
-        writer.print(shortName);
+        return shortName;
       else
-        writer.print(type.getShortDisplayName());
-
+        return type.getShortDisplayName();
     }
 
     List sort(List list) {
@@ -370,5 +412,6 @@ public class ClassDiagramWriter {
     }
 
   }
+
 
 }

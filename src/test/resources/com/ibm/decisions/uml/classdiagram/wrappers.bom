@@ -1,0 +1,6 @@
+public class Dummy {
+  java.lang.Double number;
+  java.lang.Double[] numbers;
+  public java.util.List reasons domain 1,3 class string;
+  public java.util.List listOfNumbers domain 0,* class java.lang.Double;
+}

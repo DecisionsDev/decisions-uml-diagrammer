@@ -52,6 +52,22 @@ public class ClassDiagramTest {
 
   }
 
+  @Test
+  public void testOperators() throws Exception {
+    final String name = "com/ibm/decisions/uml/classdiagram/operator.bom";
+    System.out.println(getClassDiagramFromBOM(name));
+
+  }
+
+  @Test
+  public void testWrappers() throws Exception {
+    final String name = "com/ibm/decisions/uml/classdiagram/wrappers.bom";
+    final String diagramFromBOM = getClassDiagramFromBOM(name);
+    System.out.println(diagramFromBOM);
+    assertFalse(diagramFromBOM.contains("-->"));
+
+  }
+
   public static String getClassDiagramFromBOM(String name) throws IOException {
     IlrObjectModel bom = readBOM(name);
     StringWriter stringWriter = new StringWriter();

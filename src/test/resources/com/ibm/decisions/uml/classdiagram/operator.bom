@@ -1,0 +1,30 @@
+
+public class Complex {
+  public int real;
+  public int imaginary;
+  // use a comment, as it may break because of operator /
+  /* use the other kind of comment */
+  public static Complex operator +(Complex c1, Complex c2);
+  public static Complex operator -(Complex c1, Complex c2);
+  public static Complex operator *(Complex c1, Complex c2);
+  public static Complex operator /(Complex c1, Complex c2);
+  public static Complex operator %(Complex c1, Complex c2);
+
+  public static boolean operator ==(Complex c, Complex c);
+  public static boolean operator !=(Complex c, Complex c);
+  public static boolean operator >(Complex c, Complex c);
+  public static boolean operator <(Complex c, Complex c);
+  public static boolean operator >=(Complex c, Complex c);
+  public static boolean operator <=(Complex c, Complex c);
+  public static operator Complex(int real);
+  public static operator Complex(java.lang.String f);
+}
+
+public class MyBool {
+  public static MyBool operator !(MyBool b);
+  public static MyBool operator &(MyBool b1, MyBool b2);
+  public static MyBool operator |(MyBool b1, MyBool b2);
+  public static MyBool operator ^(MyBool b1, MyBool b2);
+  public static operator MyBool(boolean b);
+  public static operator boolean(MyBool b);
+}
